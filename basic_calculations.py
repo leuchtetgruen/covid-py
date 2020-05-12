@@ -51,6 +51,16 @@ def calculate_current_r(region_collection, generation_days=4, target_key='r', so
 
     return process_region_collection(region_collection, calculate, target_key)
 
+def calculate_r7(region_collection, target_key='r7', source_key='new_infection'):
+    def calculate(region_collection, date, item):
+        one_week_ago = region_collection.item_with_date(date - datetime.timedelta(days=7))
+        if ( one_week_ago != None ) and ( one_week_ago.find_calculated(source_key) != 0):
+            return item.find_calculated(source_key) / one_week_ago.find_calculated(source_key)
+        else:
+            return 0
+
+    return process_region_collection(region_collection, calculate, target_key)
+
     
 def calculate_active_cases(region_collection, infection_duration=20):
     def calculate(region_collection, date, item):
@@ -99,12 +109,14 @@ def calculate_basics(region_collection):
     calculate_daily_new_deaths(region_collection)
     calculate_current_r(region_collection)
     calculate_current_r(region_collection, 4, 'r_deaths', 'new_deaths')
+    calculate_r7(region_collection)
     calculate_cfr(region_collection)
     calculate_active_cases(region_collection)
 
     calculate_r_weekly(region_collection)
     calculate_new_infections_weekly(region_collection)
     calculate_new_deaths_weekly(region_collection)
+    reduce_weekly(region_collection, 'r7', 'r7w', True)
     reduce_weekly(region_collection, 'r_deaths', 'r_deaths_weekly', True)
 
     process_region_collection(region_collection, lambda r,d,i : i.confirmed, 'confirmed')

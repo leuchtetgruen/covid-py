@@ -32,9 +32,20 @@ def add_events(events, collection, key, ax):
         ax.plot(date, value, 'b*')
         ax.annotate(annot, (mdates.date2num(date), value), xytext=(0, offset), textcoords='offset points', arrowprops=dict(arrowstyle='->'), color='blue')
 
+regions = []
+
+# PREFIX = "rki-"
+# LK_ID = "9179"
+# col = covid.load_for_countries(PREFIX + 'confirmed.csv', PREFIX + 'deaths.csv', ['A00-A04', 'A05-A14', 'A15-A34', 'A35-A59', 'A60-A79', 'A80+', LK_ID])
+# regions.append(col.subset_for_region('A00-A04').remember('mio_inhabitants', 5))
+# regions.append(col.subset_for_region('A05-A14').remember('mio_inhabitants', 5))
+# regions.append(col.subset_for_region('A15-A34').remember('mio_inhabitants', 5))
+# regions.append(col.subset_for_region('A35-A59').remember('mio_inhabitants', 5))
+# regions.append(col.subset_for_region('A60-A79').remember('mio_inhabitants', 5))
+# regions.append(col.subset_for_region('A80+').remember('mio_inhabitants', 5))
+# regions.append(col.subset_for_region(LK_ID).remember('mio_inhabitants', 5))
 
 col = covid.load_for_countries('confirmed.csv', 'deaths.csv', ['Germany', 'Italy', 'Sweden', 'US', 'United Kingdom', 'Denmark', 'Norway'])
-regions = []
 regions.append(col.subset_for_region('Germany').remember('mio_inhabitants', 80))
 regions.append(col.subset_for_region('Italy').remember('mio_inhabitants', 60))
 regions.append(col.subset_for_region('Sweden').remember('mio_inhabitants', 10))
@@ -47,7 +58,7 @@ for region in regions:
     calculate_basics(region)
     run_interpolations(region)
 
-SELECTED_INDEX = 6
+SELECTED_INDEX = 0
 CUT_OFF_DAYS = 0
 INFECTION_TO_STATISTICS_DELAY = 8
 INFECTION_TO_DEATH_STATISTICS_DELAY = 20
@@ -66,8 +77,10 @@ fig, axs = plt.subplots(3, 2)
 
 
 
+# axs[0,0].plot(ctr_timespan.dates(), per_100k_inhabitants(ctr_timespan.values("active_cases"), ctr_timespan.get("mio_inhabitants")), label="Aktive Fälle")
 axs[0,0].plot(ctr_timespan.dates(), ctr_timespan.values("active_cases"), label="Aktive Fälle")
 axs[0,0].legend()
+# axs[0,0].set_title("Aktive Fälle  / 100k EW ({})".format(ctr_name))
 axs[0,0].set_title("Aktive Fälle ({})".format(ctr_name))
 
 axs[0,1].plot(ctr_timespan.dates(), ctr_timespan.values("new_infections_weekly"), label='Wöchentlich gemittelt')
@@ -82,6 +95,8 @@ axs[1,0].set_title("Gemeldete Todesfälle ({})".format(ctr_name))
 
 axs[1,1].plot(ctr_timespan.dates(), ctr_timespan.values("r_weekly"), label='Wöchentlich gemittelt')
 axs[1,1].plot(ctr_timespan.dates(), ctr_timespan.values("r"), color='lightgray', linestyle='dotted', label='Täglich')
+axs[1,1].plot(ctr_timespan.dates(), ctr_timespan.values("r7"), color='pink', linestyle='dotted', label='R7')
+axs[1,1].plot(ctr_timespan.dates(), ctr_timespan.values("r7w"), color='pink', label='R7 (wöchtentlich)')
 axs[1,1].plot(ctr_timespan.dates(), [1] * len(ctr_timespan.dates()), color='red', linestyle='dashed', linewidth=0.5, label='R=1')
 axs[1,1].legend()
 axs[1,1].set_title("Entwicklung von R ({})".format(ctr_name))
@@ -93,7 +108,7 @@ EVENTS = [{
     datetime.date(2020, 3, 22): "0-Kontaktsperren",
     datetime.date(2020, 4, 10): "Ostern",
     datetime.date(2020, 4, 15): "Lockerungsdiskussionen",
-    datetime.date(2020, 4, 27): "Masken",
+    datetime.date(2020, 4, 27): "Geschäftsöffnungen / Masken",
     datetime.date(2020, 5, 3): "U-Schulöffnungen",
     },
     {

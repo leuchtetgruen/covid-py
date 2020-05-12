@@ -66,6 +66,11 @@ class DataCollection:
     def get(self, key):
         return self.dictionary[key]
 
+    def latest_item(self):
+        max_date = max([x.date for x in self.datapoints])
+        return self.item_with_date(max_date)
+
+
 class DataPoint:
     def __init__(self, date, region):
         self.date = date
