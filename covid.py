@@ -118,8 +118,7 @@ def load_for_countries(confirmed_csv, deaths_csv, countries):
 
     df_c = pd.read_csv(confirmed_csv)
     for i, row in df_c.iterrows():
-        if (row['Country/Region'] not in countries) or (type(row['Province/State']) == str):
-        # if (row['Country/Region'] not in countries):
+        if ( (row['Country/Region'] not in countries) or (type(row['Province/State']) == str) ) and (len(countries) > 0):
             continue
 
         for dp in datapoints_from_row(row):
@@ -128,7 +127,7 @@ def load_for_countries(confirmed_csv, deaths_csv, countries):
 
     df_c = pd.read_csv(deaths_csv)
     for i, row in df_c.iterrows():
-        if (row['Country/Region'] not in countries) or (type(row['Province/State']) == str):
+        if ( (row['Country/Region'] not in countries) or (type(row['Province/State']) == str) ) and (len(countries) > 0):
             continue
 
         for dp in datapoints_from_row(row):
