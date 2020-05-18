@@ -34,32 +34,33 @@ def add_events(events, collection, key, ax):
 
 regions = []
 
-# PREFIX = "rki-"
-# LK_ID = "9179"
-# col = covid.load_for_countries(PREFIX + 'confirmed.csv', PREFIX + 'deaths.csv', ['A00-A04', 'A05-A14', 'A15-A34', 'A35-A59', 'A60-A79', 'A80+', LK_ID])
-# regions.append(col.subset_for_region('A00-A04').remember('mio_inhabitants', 5))
-# regions.append(col.subset_for_region('A05-A14').remember('mio_inhabitants', 5))
-# regions.append(col.subset_for_region('A15-A34').remember('mio_inhabitants', 5))
-# regions.append(col.subset_for_region('A35-A59').remember('mio_inhabitants', 5))
-# regions.append(col.subset_for_region('A60-A79').remember('mio_inhabitants', 5))
-# regions.append(col.subset_for_region('A80+').remember('mio_inhabitants', 5))
-# regions.append(col.subset_for_region(LK_ID).remember('mio_inhabitants', 5))
+PREFIX = "rki-"
+LK_ID = "11000"
+col = covid.load_for_countries(PREFIX + 'confirmed.csv', PREFIX + 'deaths.csv', [LK_ID, 'A00-A04', 'A05-A14', 'A15-A34', 'A35-A59', 'A60-A79', 'A80+'])
+regions.append(col.subset_for_region(LK_ID).remember('mio_inhabitants', 5))
+regions.append(col.subset_for_region('A00-A04').remember('mio_inhabitants', 5))
+regions.append(col.subset_for_region('A05-A14').remember('mio_inhabitants', 5))
+regions.append(col.subset_for_region('A15-A34').remember('mio_inhabitants', 5))
+regions.append(col.subset_for_region('A35-A59').remember('mio_inhabitants', 5))
+regions.append(col.subset_for_region('A60-A79').remember('mio_inhabitants', 5))
+regions.append(col.subset_for_region('A80+').remember('mio_inhabitants', 5))
+CUT_OFF_DAYS = 0
 
-col = covid.load_for_countries('confirmed.csv', 'deaths.csv', ['Germany', 'Italy', 'Sweden', 'US', 'United Kingdom', 'Denmark', 'Norway'])
-regions.append(col.subset_for_region('Germany').remember('mio_inhabitants', 80))
-regions.append(col.subset_for_region('Italy').remember('mio_inhabitants', 60))
-regions.append(col.subset_for_region('Sweden').remember('mio_inhabitants', 10))
-regions.append(col.subset_for_region('US').remember('mio_inhabitants', 328))
-regions.append(col.subset_for_region('United Kingdom').remember('mio_inhabitants',66))
-regions.append(col.subset_for_region('Denmark').remember('mio_inhabitants', 5))
-regions.append(col.subset_for_region('Norway').remember('mio_inhabitants', 5))
+# col = covid.load_for_countries('confirmed.csv', 'deaths.csv', ['Germany', 'Italy', 'Sweden', 'US', 'United Kingdom', 'Denmark', 'Norway'])
+# regions.append(col.subset_for_region('Germany').remember('mio_inhabitants', 80))
+# regions.append(col.subset_for_region('Italy').remember('mio_inhabitants', 60))
+# regions.append(col.subset_for_region('Sweden').remember('mio_inhabitants', 10))
+# regions.append(col.subset_for_region('US').remember('mio_inhabitants', 328))
+# regions.append(col.subset_for_region('United Kingdom').remember('mio_inhabitants',66))
+# regions.append(col.subset_for_region('Denmark').remember('mio_inhabitants', 5))
+# regions.append(col.subset_for_region('Norway').remember('mio_inhabitants', 5))
+# CUT_OFF_DAYS = 0
 
 for region in regions:
     calculate_basics(region)
     run_interpolations(region)
 
 SELECTED_INDEX = 0
-CUT_OFF_DAYS = 0
 INFECTION_TO_STATISTICS_DELAY = 8
 INFECTION_TO_DEATH_STATISTICS_DELAY = 20
 R_DELAY = 12
@@ -95,8 +96,8 @@ axs[1,0].set_title("Gemeldete Todesfälle ({})".format(ctr_name))
 
 axs[1,1].plot(ctr_timespan.dates(), ctr_timespan.values("r_weekly"), label='Wöchentlich gemittelt')
 axs[1,1].plot(ctr_timespan.dates(), ctr_timespan.values("r"), color='lightgray', linestyle='dotted', label='Täglich')
-axs[1,1].plot(ctr_timespan.dates(), ctr_timespan.values("r7"), color='pink', linestyle='dotted', label='R7')
-axs[1,1].plot(ctr_timespan.dates(), ctr_timespan.values("r7w"), color='pink', label='R7 (wöchtentlich)')
+axs[1,1].plot(ctr_timespan.dates(), ctr_timespan.values("r7"), color='pink',  linestyle='dotted', label='R7 (tgl)')
+axs[1,1].plot(ctr_timespan.dates(), ctr_timespan.values("r7_weekly"), color='pink',  label='R7 (wöchentlich)')
 axs[1,1].plot(ctr_timespan.dates(), [1] * len(ctr_timespan.dates()), color='red', linestyle='dashed', linewidth=0.5, label='R=1')
 axs[1,1].legend()
 axs[1,1].set_title("Entwicklung von R ({})".format(ctr_name))

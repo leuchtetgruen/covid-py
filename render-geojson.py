@@ -8,21 +8,41 @@ import numpy as np
 import pdb
 import math
 
-KEY_TO_TRANSFER = 'r'
-OUTPUT_FILENAME = "2020-05-13-r.geojson"
+# REFERENCE_DATE = datetime.date(2020, 5, 6)
+# OUTPUT_FILENAME = "{}-r_weekly.geojson".format(str(REFERENCE_DATE.year) + "-" + str(REFERENCE_DATE.month) + "-" + str(REFERENCE_DATE.day))
 
-def defer_value(collection, key, default=0):
-    start_day = datetime.date.today() - datetime.timedelta(days=3)
-    subset = collection.subset(lambda x: x.date >= start_day)
-    print(len(subset.datapoints))
-    if len(subset.datapoints) > 0:
-        val = np.average(subset.values(key))
-        if math.isnan(val) or math.isinf(val):
-            return default
+def add_to_dataset(collection, date, dataset):
+    item = collection.item_with_date(date)
+
+    if (item == None):
+        return
+
+    for key in item.calculated.keys():
+        v = item.calculated[key]
+        if math.isnan(v):
+            dataset[key] = -10000
+        elif math.isinf(v):
+            dataset[key] = -20000
         else:
-            return val
-    else:
-        return default
+            dataset[key] = v
+
+def create_json_for_day(date):
+    output_filename = "{}.geojson".format(str(date.year) + "-" + str(date.month) + "-" + str(date.day))
+
+    for dataset in geo_json_data:
+        if (not 'cca_2' in dataset):
+            continue
+
+        region_id = dataset['cca_2'].lstrip("0")
+        region_collection = [x for x in regions_list if x.get('region') == region_id][0]
+        print(region_id)
+        add_to_dataset(region_collection, date, dataset)
+        print(dataset)
+
+    with open(output_filename, 'w') as output_file:
+        json.dump(geo_json, output_file)
+
+        output_file.close()
     
 
 with open('./landkreise.json') as json_file:
@@ -42,19 +62,21 @@ for region_dc in regions_list:
     calculate_basics(region_dc)
     run_interpolations(region_dc)
 
-for dataset in geo_json_data:
-    if (not 'cca_2' in dataset):
-        continue
+# for dataset in geo_json_data:
+    # if (not 'cca_2' in dataset):
+        # continue
 
-    region_id = dataset['cca_2'].lstrip("0")
-    region_collection = [x for x in regions_list if x.get('region') == region_id][0]
-    print(region_id)
-    val = defer_value(region_collection, KEY_TO_TRANSFER, -1)
-    dataset[KEY_TO_TRANSFER] = val
-    print(val)
+    # region_id = dataset['cca_2'].lstrip("0")
+    # region_collection = [x for x in regions_list if x.get('region') == region_id][0]
+    # print(region_id)
+    # add_to_dataset(region_collection, REFERENCE_DATE, dataset)
+    # print(dataset)
 
-with open(OUTPUT_FILENAME, 'w') as output_file:
-    json.dump(geo_json, output_file)
+# with open(OUTPUT_FILENAME, 'w') as output_file:
+    # json.dump(geo_json, output_file)
 
-    output_file.close()
+    # output_file.close()
 
+print("run create_json_for_day(datetime.date(yyyy, mm, dd)) in order to create json file")
+
+pdb.set_trace()

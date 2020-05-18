@@ -2,28 +2,14 @@ import datetime
 import pandas as pd
 import numpy as np
 import pdb
-
-class RKIDataPoint:
-    def __init__(self, date_str, age_bracket, count, death_count, region_id):
-        self.date = self.to_date(date_str)
-        self.age_bracket = age_bracket
-        self.count = count
-        self.death_count = death_count
-        self.region_id = region_id
-
-    def to_date(self, date_str):
-        date_component = date_str.split(" ")[0]
-        date_components = [int(x) for x in date_component.split("/")]
-        return datetime.date(date_components[0], date_components[1], date_components[2])
+from rki import RKIDataPoint, load_rki_csv
 
 
-def to_datapoint(row):
-    return RKIDataPoint(row['Meldedatum'], row['Altersgruppe'], row['AnzahlFall'], row['AnzahlTodesfall'], row['IdLandkreis'])
+CONVERT_HASHES = {
+        11000 : [11001, 11002, 11003, 11004, 11005, 11006, 11007, 11008, 11009, 11010, 11011, 11012]
+}
 
-print("Reading data...")
-df = pd.read_csv("./rki.csv")
-print("Converting to Datapoints")
-rki_datapoints = [to_datapoint(x) for i,x in df.iterrows()]
+rki_datapoints = load_rki_csv("./rki.csv")
 print("Processing...")
 min_date = min(x.date for x in rki_datapoints)
 max_date = max(x.date for x in rki_datapoints)
@@ -91,6 +77,20 @@ for i in range(0, total_days):
 
         date_hash[date][age_bracket] = ctr.copy()
         counter[age_bracket] = ctr.copy()
+
+print("Creating sums...")
+for i in range(0, total_days):
+    date = min_date + datetime.timedelta(days=i)
+    for key in CONVERT_HASHES.keys(): 
+        ctr = [0,0]
+        for s_key in CONVERT_HASHES[key]:
+            # pdb.set_trace()
+            s_ctr = date_hash[date][s_key]
+            ctr[0] = ctr[0] + s_ctr[0]
+            ctr[1] = ctr[1] + s_ctr[1]
+
+        date_hash[date][key] = ctr
+
 
 
 n_entries = len(list(date_hash.values())[0])
