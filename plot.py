@@ -60,7 +60,7 @@ for region in regions:
     calculate_basics(region)
     run_interpolations(region)
 
-SELECTED_INDEX = 4
+SELECTED_INDEX = 0
 INFECTION_TO_STATISTICS_DELAY = 8
 INFECTION_TO_DEATH_STATISTICS_DELAY = 20
 R_DELAY = 12
@@ -85,6 +85,7 @@ axs[0,0].legend()
 axs[0,0].set_title("Aktive Fälle ({})".format(ctr_name))
 
 axs[0,1].plot(ctr_timespan.dates(), ctr_timespan.values("new_infections_weekly"), label='Wöchentlich gemittelt')
+axs[0,1].plot(ctr_timespan.dates(), ctr_timespan.values("new_infections_weekly_sum"), label='Wöchentlich summiert')
 axs[0,1].plot(ctr_timespan.dates(), ctr_timespan.values("new_infection"), color='lightgray', linestyle='dotted', label='Täglich')
 axs[0,1].legend()
 axs[0,1].set_title("Gemeldete Neuinfektionen ({})".format(ctr_name))

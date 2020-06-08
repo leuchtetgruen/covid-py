@@ -100,7 +100,8 @@ class DataPoint:
                 'region': self.region,
                 'confirmed': self.confirmed,
                 'deaths': self.deaths,
-                'calculated' : self.calculated
+                'calculated' : self.calculated,
+                'buffer': self.buffer
                 }
 
     def copy(self):
@@ -113,23 +114,33 @@ class DataPoint:
         return dp
 
 
-def load_for_countries(confirmed_csv, deaths_csv, countries):
+def load_for_countries(confirmed_csv, deaths_csv, countries, loadDeaths=True):
     db = DataCollection()
 
+    print("Loading confirmed...")
     df_c = pd.read_csv(confirmed_csv)
     for i, row in df_c.iterrows():
         if ( (row['Country/Region'] not in countries) or (type(row['Province/State']) == str) ) and (len(countries) > 0):
             continue
 
+        print(row['Country/Region'])
         for dp in datapoints_from_row(row):
-
             db.add_datapoint(dp)
 
+    if not loadDeaths:
+        for item in db.datapoints:
+            item.confirmed = item.buffer
+
+        return db
+
+
+    print("Loading deaths...")
     df_c = pd.read_csv(deaths_csv)
     for i, row in df_c.iterrows():
         if ( (row['Country/Region'] not in countries) or (type(row['Province/State']) == str) ) and (len(countries) > 0):
             continue
 
+        print(row['Country/Region'])
         for dp in datapoints_from_row(row):
             dp_orig = db.item_with_date_and_region(dp.date, dp.region)
             dp_orig.deaths = dp.buffer

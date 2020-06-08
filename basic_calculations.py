@@ -125,6 +125,7 @@ def calculate_basics(region_collection):
     calculate_new_deaths_weekly(region_collection)
     reduce_weekly(region_collection, 'r_deaths', 'r_deaths_weekly', True)
     reduce_weekly(region_collection, 'r7', 'r7_weekly', True)
+    reduce_weekly(region_collection, 'new_infection', 'new_infections_weekly_sum')
 
     process_region_collection(region_collection, lambda r,d,i : i.confirmed, 'confirmed')
     process_region_collection(region_collection, lambda r,d,i : i.deaths, 'deaths')
