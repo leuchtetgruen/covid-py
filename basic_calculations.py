@@ -40,14 +40,18 @@ def calculate_daily_new_deaths(region_collection):
 
     return process_region_collection(region_collection, calculate, 'new_deaths')
 
-def calculate_current_r(region_collection, generation_days=4, target_key='r', source_key='new_infection'):
+def calculate_current_r(region_collection, generation_days=4, target_key='r', source_key='new_infection', after_lambda=None):
     def calculate(region_collection, date, item):
         recent_days = region_collection.subset_for_timespan(date - datetime.timedelta(days=generation_days-1), date)
         olden_days = region_collection.subset_for_timespan(date - datetime.timedelta(days=2*generation_days-1), date - datetime.timedelta(days=generation_days)) 
         recent_infections_sum = np.sum([x.find_calculated(source_key, 0) for x in recent_days.datapoints])
         olden_infections_sum = np.sum([x.find_calculated(source_key, 0) for x in olden_days.datapoints])
 
-        return float(recent_infections_sum / olden_infections_sum)
+        result = float(recent_infections_sum / olden_infections_sum)
+        if after_lambda==None:
+            return result
+        else:
+            return after_lambda(result)
 
 
     return process_region_collection(region_collection, calculate, target_key)
@@ -115,7 +119,7 @@ def calculate_basics(region_collection):
     calculate_daily_new_deaths(region_collection)
     calculate_current_r(region_collection)
     calculate_current_r(region_collection, 4, 'r_deaths', 'new_deaths')
-    calculate_current_r(region_collection, 7, 'r7')
+    calculate_current_r(region_collection, 7, 'r7', 'new_infection', lambda x: math.sqrt(x))
     calculate_cfr(region_collection)
     calculate_active_cases(region_collection)
     calculate_days_since_last_infection(region_collection)

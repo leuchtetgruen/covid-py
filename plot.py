@@ -34,27 +34,27 @@ def add_events(events, collection, key, ax):
 
 regions = []
 
-PREFIX = "rki-"
-LK_ID = "11000"
-col = covid.load_for_countries(PREFIX + 'confirmed.csv', PREFIX + 'deaths.csv', [LK_ID, 'A00-A04', 'A05-A14', 'A15-A34', 'A35-A59', 'A60-A79', 'A80+'])
-regions.append(col.subset_for_region(LK_ID).remember('mio_inhabitants', 5))
-regions.append(col.subset_for_region('A00-A04').remember('mio_inhabitants', 5))
-regions.append(col.subset_for_region('A05-A14').remember('mio_inhabitants', 5))
-regions.append(col.subset_for_region('A15-A34').remember('mio_inhabitants', 5))
-regions.append(col.subset_for_region('A35-A59').remember('mio_inhabitants', 5))
-regions.append(col.subset_for_region('A60-A79').remember('mio_inhabitants', 5))
-regions.append(col.subset_for_region('A80+').remember('mio_inhabitants', 5))
-CUT_OFF_DAYS = 0
-
-# col = covid.load_for_countries('confirmed.csv', 'deaths.csv', ['Germany', 'Italy', 'Sweden', 'US', 'United Kingdom', 'Denmark', 'Norway'])
-# regions.append(col.subset_for_region('Germany').remember('mio_inhabitants', 80))
-# regions.append(col.subset_for_region('Italy').remember('mio_inhabitants', 60))
-# regions.append(col.subset_for_region('Sweden').remember('mio_inhabitants', 10))
-# regions.append(col.subset_for_region('US').remember('mio_inhabitants', 328))
-# regions.append(col.subset_for_region('United Kingdom').remember('mio_inhabitants',66))
-# regions.append(col.subset_for_region('Denmark').remember('mio_inhabitants', 5))
-# regions.append(col.subset_for_region('Norway').remember('mio_inhabitants', 5))
+# PREFIX = "rki-"
+# LK_ID = "11000"
+# col = covid.load_for_countries(PREFIX + 'confirmed.csv', PREFIX + 'deaths.csv', [LK_ID, 'A00-A04', 'A05-A14', 'A15-A34', 'A35-A59', 'A60-A79', 'A80+'])
+# regions.append(col.subset_for_region(LK_ID).remember('mio_inhabitants', 5))
+# regions.append(col.subset_for_region('A00-A04').remember('mio_inhabitants', 5))
+# regions.append(col.subset_for_region('A05-A14').remember('mio_inhabitants', 5))
+# regions.append(col.subset_for_region('A15-A34').remember('mio_inhabitants', 5))
+# regions.append(col.subset_for_region('A35-A59').remember('mio_inhabitants', 5))
+# regions.append(col.subset_for_region('A60-A79').remember('mio_inhabitants', 5))
+# regions.append(col.subset_for_region('A80+').remember('mio_inhabitants', 5))
 # CUT_OFF_DAYS = 0
+
+col = covid.load_for_countries('confirmed.csv', 'deaths.csv', ['Germany', 'Italy', 'Sweden', 'US', 'United Kingdom', 'Denmark', 'Norway'])
+regions.append(col.subset_for_region('Germany').remember('mio_inhabitants', 80))
+regions.append(col.subset_for_region('Italy').remember('mio_inhabitants', 60))
+regions.append(col.subset_for_region('Sweden').remember('mio_inhabitants', 10))
+regions.append(col.subset_for_region('US').remember('mio_inhabitants', 328))
+regions.append(col.subset_for_region('United Kingdom').remember('mio_inhabitants',66))
+regions.append(col.subset_for_region('Denmark').remember('mio_inhabitants', 5))
+regions.append(col.subset_for_region('Norway').remember('mio_inhabitants', 5))
+CUT_OFF_DAYS = 0
 
 for region in regions:
     calculate_basics(region)
