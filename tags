@@ -1,0 +1,196 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+ADDITIONAL_DAYS	superspreading.py	/^ADDITIONAL_DAYS = 3$/;"	v
+AGE_BRACKETS	rki_tools.py	/^AGE_BRACKETS = ["A00-A04", "A05-A14", "A15-A34", "A35-A59", "A60-A79", "A80+"]$/;"	v
+AGE_GROUPS	agegroups.py	/^AGE_GROUPS = ['A00-A04', 'A05-A14', 'A15-A34', 'A35-A59', 'A60-A79', 'A80+']$/;"	v
+BEZIRKE	rki_tools.py	/^BEZIRKE = {$/;"	v
+CONVERT_HASHES	convert_rki.py	/^CONVERT_HASHES = {$/;"	v
+CUT_OFF_DAYS	agegroups.py	/^CUT_OFF_DAYS = 3$/;"	v
+CUT_OFF_DAYS	plot.py	/^CUT_OFF_DAYS = 0$/;"	v
+CUT_OFF_DAYS	regions.py	/^CUT_OFF_DAYS = 3$/;"	v
+DataCollection	covid.py	/^class DataCollection:$/;"	c
+DataPoint	covid.py	/^class DataPoint:$/;"	c
+EVENTS	plot.py	/^EVENTS = [{$/;"	v
+INFECTION_TO_DEATH_STATISTICS_DELAY	plot.py	/^INFECTION_TO_DEATH_STATISTICS_DELAY = 20$/;"	v
+INFECTION_TO_STATISTICS_DELAY	plot.py	/^INFECTION_TO_STATISTICS_DELAY = 8$/;"	v
+LOOKBACK_DAYS	agegroups.py	/^LOOKBACK_DAYS = 90$/;"	v
+LOOKBACK_DAYS	plot.py	/^LOOKBACK_DAYS = 48$/;"	v
+LOOKBACK_DAYS	regions.py	/^LOOKBACK_DAYS = 45$/;"	v
+MIN_NI	superspreading.py	/^MIN_NI = 15$/;"	v
+MIN_RATIO	superspreading.py	/^MIN_RATIO = 5$/;"	v
+MONTH	superspreading.py	/^MONTH = 4$/;"	v
+MY_AGE_BRACKETS	schoolopening.py	/^MY_AGE_BRACKETS = ['A05-A14', 'A60-A79']$/;"	v
+MY_REGIONS	schoolopening.py	/^MY_REGIONS = [$/;"	v
+NAMES	regions.py	/^NAMES = {$/;"	v
+PREFIX	covid-console.py	/^PREFIX = "rki-"$/;"	v
+PREFIX	superspreading.py	/^PREFIX = "rki-"$/;"	v
+REGIONS	regions.py	/^REGIONS = ['1000',$/;"	v
+REGIONS	rki_tools.py	/^REGIONS = {$/;"	v
+RKIDataPoint	rki.py	/^class RKIDataPoint:$/;"	c
+R_DELAY	plot.py	/^R_DELAY = 12$/;"	v
+RelativeCounter	rki_tools.py	/^def RelativeCounter(values):$/;"	f
+SELECTED_INDEX	plot.py	/^SELECTED_INDEX = 0$/;"	v
+WEEKS	schoolopening.py	/^WEEKS = [datetime.date(2020, 4, 27), datetime.date(2020, 5, 4), datetime.date(2020, 5, 11), datetime.date(2020, 5, 18), datetime.date(2020, 5, 25)]$/;"	v
+__init__	covid.py	/^    def __init__(self, datapoints=[], dictionary={}):$/;"	m	class:DataCollection
+__init__	covid.py	/^    def __init__(self, date, region):$/;"	m	class:DataPoint
+__init__	rki.py	/^    def __init__(self, date_str, age_bracket, count, death_count, region_id):$/;"	m	class:RKIDataPoint
+add_datapoint	covid.py	/^    def add_datapoint(self, dp):$/;"	m	class:DataCollection
+add_events	plot.py	/^def add_events(events, collection, key, ax):$/;"	f
+add_to_dataset	render-geojson.py	/^def add_to_dataset(collection, date, dataset):$/;"	f
+age_groups	agegroups.py	/^age_groups = []$/;"	v
+age_hash	convert_rki.py	/^age_hash = {}$/;"	v
+ages	convert_rki.py	/^    ages = np.array([x.age_bracket for x in data_for_day])$/;"	v
+all_calc_dps	superspreading.py	/^all_calc_dps = []$/;"	v
+all_for_age_bracket_in_region	ages-and-regions.py	/^        all_for_age_bracket_in_region = for_age_bracket(all_for_region, bracket)$/;"	v
+all_for_region	ages-and-regions.py	/^    all_for_region = for_region(all_for_week, REGIONS[region_name])$/;"	v
+all_for_week	ages-and-regions.py	/^all_for_week = for_week(data, week)$/;"	v
+all_regions	superspreading.py	/^all_regions = np.unique([x.region for x in data.datapoints])$/;"	v
+all_rki_data	render-geojson.py	/^all_rki_data = covid.load_for_countries(".\/rki-confirmed.csv", ".\/rki-deaths.csv", regions)$/;"	v
+asdict	covid.py	/^    def asdict(self):$/;"	m	class:DataPoint
+ax	regions.py	/^    ax = axs[row, col]$/;"	v
+bracket_sum	ages-and-regions.py	/^        bracket_sum = np.sum([x.count for x in all_for_age_bracket_in_region])$/;"	v
+calculate	basic_calculations.py	/^    def calculate(region_collection, date, item):$/;"	f	function:calculate_active_cases
+calculate	basic_calculations.py	/^    def calculate(region_collection, date, item):$/;"	f	function:calculate_cfr
+calculate	basic_calculations.py	/^    def calculate(region_collection, date, item):$/;"	f	function:calculate_current_r
+calculate	basic_calculations.py	/^    def calculate(region_collection, date, item):$/;"	f	function:calculate_daily_new_deaths
+calculate	basic_calculations.py	/^    def calculate(region_collection, date, item):$/;"	f	function:calculate_daily_new_infections
+calculate	basic_calculations.py	/^    def calculate(region_collection, date, item):$/;"	f	function:calculate_days_since_last_infection
+calculate	basic_calculations.py	/^    def calculate(region_collection, date, item):$/;"	f	function:reduce_weekly
+calculate	interpolation.py	/^    def calculate(region_collection, date, item):$/;"	f	function:interpolate
+calculate_active_cases	basic_calculations.py	/^def calculate_active_cases(region_collection, infection_duration=20):$/;"	f
+calculate_basics	basic_calculations.py	/^def calculate_basics(region_collection):$/;"	f
+calculate_cfr	basic_calculations.py	/^def calculate_cfr(region_collection, days_from_registration_until_death=14):$/;"	f
+calculate_current_r	basic_calculations.py	/^def calculate_current_r(region_collection, generation_days=4, target_key='r', source_key='new_infection', after_lambda=None):$/;"	f
+calculate_daily_new_deaths	basic_calculations.py	/^def calculate_daily_new_deaths(region_collection):$/;"	f
+calculate_daily_new_infections	basic_calculations.py	/^def calculate_daily_new_infections(region_collection):$/;"	f
+calculate_days_since_last_infection	basic_calculations.py	/^def calculate_days_since_last_infection(region_collection):$/;"	f
+calculate_new_deaths_weekly	basic_calculations.py	/^def calculate_new_deaths_weekly(region_collection):$/;"	f
+calculate_new_infections_weekly	basic_calculations.py	/^def calculate_new_infections_weekly(region_collection):$/;"	f
+calculate_r_weekly	basic_calculations.py	/^def calculate_r_weekly(region_collection):$/;"	f
+cases	schoolopening.py	/^            cases = np.sum([x.count for x in for_week(for_age_bracket(for_region(data, region_id), ab), week)])$/;"	v
+cluster_candidates	superspreading.py	/^cluster_candidates = [x for x in all_calc_dps if (x.date.month == MONTH) and (x.find_calculated("new_infection") > MIN_NI)]$/;"	v
+col	agegroups.py	/^    col = i % 2$/;"	v
+col	agegroups.py	/^col = covid.load_for_countries('rki-confirmed.csv', 'rki-deaths.csv', AGE_GROUPS)$/;"	v
+col	plot.py	/^col = covid.load_for_countries('confirmed.csv', 'deaths.csv', ['Germany', 'Italy', 'Sweden', 'US', 'United Kingdom', 'Israel', 'Switzerland'])$/;"	v
+col	regions.py	/^    col = i % 4$/;"	v
+col	regions.py	/^col = covid.load_for_countries('rki-confirmed.csv', 'rki-deaths.csv', REGIONS)$/;"	v
+copy	covid.py	/^    def copy(self):$/;"	m	class:DataPoint
+count_array	rki_tools.py	/^def count_array(datapoints, property_lambda):$/;"	f
+counter	convert_rki.py	/^counter = {}$/;"	v
+create_json_for_day	render-geojson.py	/^def create_json_for_day(date):$/;"	f
+create_timeline_with_r	prognosis.py	/^def create_timeline_with_r(base_data, start_date, days, r=0, generation_days=4):$/;"	f
+ctr	convert_rki.py	/^            ctr = [0, 0]$/;"	v
+ctr	convert_rki.py	/^            ctr = counter[age_bracket]$/;"	v
+ctr	convert_rki.py	/^            ctr = counter[region_id]$/;"	v
+ctr	convert_rki.py	/^        ctr = [0,0]$/;"	v
+ctr	plot.py	/^ctr = regions[SELECTED_INDEX]$/;"	v
+ctr_name	plot.py	/^ctr_name = ctr.datapoints[0].region$/;"	v
+ctr_timespan	plot.py	/^ctr_timespan = ctr.subset_for_timespan(daysago, today)$/;"	v
+data	ages-and-regions.py	/^data = load_rki_csv(".\/rki.csv")$/;"	v
+data	covid-console.py	/^data = covid.load_for_countries(PREFIX + 'confirmed.csv', PREFIX + 'deaths.csv', subsets, False)$/;"	v
+data	rki-console.py	/^data = load_rki_csv(".\/rki.csv")$/;"	v
+data	schoolopening.py	/^data = load_rki_csv(".\/rki.csv")$/;"	v
+data	superspreading.py	/^data = covid.load_for_countries(PREFIX + 'confirmed.csv', PREFIX + 'deaths.csv', [], False)$/;"	v
+datapoints_from_row	covid.py	/^def datapoints_from_row(row):$/;"	f
+date	convert_rki.py	/^    date = min_date + datetime.timedelta(days=i)$/;"	v
+date_hash	convert_rki.py	/^date_hash = {}$/;"	v
+dates	convert_rki.py	/^dates = [min_date + datetime.timedelta(days=i) for i in range(0, total_days)]$/;"	v
+dates	covid.py	/^    def dates(self):$/;"	m	class:DataCollection
+days_and_regions	superspreading.py	/^days_and_regions = [[x.date, x.region] for x in narrowed_down]$/;"	v
+daysago	agegroups.py	/^daysago = today - datetime.timedelta(days=LOOKBACK_DAYS)$/;"	v
+daysago	plot.py	/^daysago = today - datetime.timedelta(days=LOOKBACK_DAYS)$/;"	v
+daysago	regions.py	/^daysago = today - datetime.timedelta(days=LOOKBACK_DAYS)$/;"	v
+dc	superspreading.py	/^dc = covid.DataCollection(all_calc_dps)$/;"	v
+df_c	convert_rki.py	/^df_c = pd.DataFrame(table_confirmed, columns=table_confirmed.keys())$/;"	v
+df_d	convert_rki.py	/^df_d = pd.DataFrame(table_deaths, columns=table_deaths.keys())$/;"	v
+dps	superspreading.py	/^dps = [dc.item_with_date_and_region(x[0], x[1]) for x in new_unique]$/;"	v
+find_calculated	covid.py	/^    def find_calculated(self, key, else_value=0):$/;"	m	class:DataPoint
+for_age_bracket	rki_tools.py	/^def for_age_bracket(arr, age_bracket):$/;"	f
+for_date	rki_tools.py	/^def for_date(arr, d):$/;"	f
+for_region	rki_tools.py	/^def for_region(arr, region_prefix):$/;"	f
+for_timespan	rki_tools.py	/^def for_timespan(arr, d1, d2):$/;"	f
+for_week	rki_tools.py	/^def for_week(arr, d1):$/;"	f
+geo_json	render-geojson.py	/^    geo_json = json.load(json_file)$/;"	v
+geo_json_data	render-geojson.py	/^geo_json_data = [x['properties'] for x in geo_json['features']]$/;"	v
+get	covid.py	/^    def get(self, key):$/;"	m	class:DataCollection
+has_calculated	covid.py	/^    def has_calculated(self, key):$/;"	m	class:DataPoint
+infections_realtime	plot.py	/^infections_realtime = transform_to_realtime(ctr_timespan, INFECTION_TO_STATISTICS_DELAY)$/;"	v
+interpolate	interpolation.py	/^def interpolate(region_collection, source_key, target_key, ifr):$/;"	f
+interpolate_active_cases	interpolation.py	/^def interpolate_active_cases(region_collection, ifr):$/;"	f
+interpolate_cases	interpolation.py	/^def interpolate_cases(region_collection, ifr):$/;"	f
+interpolate_new_infections	interpolation.py	/^def interpolate_new_infections(region_collection, ifr):$/;"	f
+is_empty	covid.py	/^    def is_empty(self):$/;"	m	class:DataCollection
+is_lk_data	superspreading.py	/^def is_lk_data(region_id):$/;"	f
+item_with_date	covid.py	/^    def item_with_date(self, date):$/;"	m	class:DataCollection
+item_with_date_and_region	covid.py	/^    def item_with_date_and_region(self, date, region):$/;"	m	class:DataCollection
+latest_item	covid.py	/^    def latest_item(self):$/;"	m	class:DataCollection
+lc	superspreading.py	/^lc = len(cluster_candidates)$/;"	v
+ld	superspreading.py	/^ld = len(days_and_regions)$/;"	v
+list_subsets	covid-console.py	/^list_subsets = [data.subset_for_region(x) for x in subsets]$/;"	v
+lks	convert_rki.py	/^    lks = np.array([x.region_id for x in data_for_day])$/;"	v
+load_for_countries	covid.py	/^def load_for_countries(confirmed_csv, deaths_csv, countries, loadDeaths=True):$/;"	f
+load_rki_csv	rki.py	/^def load_rki_csv(filename):$/;"	f
+max_date	convert_rki.py	/^max_date = max(x.date for x in rki_datapoints)$/;"	v
+min_date	convert_rki.py	/^min_date = min(x.date for x in rki_datapoints)$/;"	v
+n_entries	convert_rki.py	/^n_entries = len(list(date_hash.values())[0])$/;"	v
+name	agegroups.py	/^    name = age_group.datapoints[0].region$/;"	v
+name	regions.py	/^    name = NAMES[region.datapoints[0].region]$/;"	v
+narrowed_down	superspreading.py	/^narrowed_down = []$/;"	v
+new_dth	convert_rki.py	/^        new_dth = np.sum([x.death_count for x in data_for_day if x.age_bracket == age_bracket])$/;"	v
+new_dth	convert_rki.py	/^        new_dth = np.sum([x.death_count for x in data_for_day if x.region_id == region_id])$/;"	v
+new_inf	convert_rki.py	/^        new_inf = np.sum([x.count for x in data_for_day if x.age_bracket == age_bracket])$/;"	v
+new_inf	convert_rki.py	/^        new_inf = np.sum([x.count for x in data_for_day if x.region_id == region_id])$/;"	v
+new_unique	superspreading.py	/^new_unique = [x for x in unique_days_and_regions if is_lk_data(x[1])]$/;"	v
+per_100k_inhabitants	plot.py	/^def per_100k_inhabitants(values, mio_inhabitants):$/;"	f
+process_region_collection	basic_calculations.py	/^def process_region_collection(region_collection, process_function, key, days_offset=0):$/;"	f
+r_deaths_realtime	plot.py	/^r_deaths_realtime = transform_to_realtime(ctr_timespan, INFECTION_TO_DEATH_STATISTICS_DELAY).subset(lambda c: c.date >= r_realtime.datapoints[0].date)$/;"	v
+r_realtime	plot.py	/^r_realtime = transform_to_realtime(ctr_timespan, R_DELAY)$/;"	v
+reduce_weekly	basic_calculations.py	/^def reduce_weekly(region_collection, source_key, target_key, average=False):$/;"	f
+region_id	schoolopening.py	/^            region_id = REGIONS[region]$/;"	v
+regions	plot.py	/^regions = []$/;"	v
+regions	regions.py	/^regions = []$/;"	v
+regions	render-geojson.py	/^regions = [x['cca_2'].lstrip("0") for x in geo_json_data if 'cca_2' in x]$/;"	v
+regions	superspreading.py	/^regions = [data.subset_for_region(r) for r in all_regions]$/;"	v
+regions_hash	convert_rki.py	/^regions_hash = {}$/;"	v
+regions_list	render-geojson.py	/^regions_list = []$/;"	v
+regions_timespan	plot.py	/^regions_timespan = [x.subset_for_timespan(daysago, today) for x in regions]$/;"	v
+remember	covid.py	/^    def remember(self, key, value):$/;"	m	class:DataCollection
+remember_calculated	covid.py	/^    def remember_calculated(self, key, value):$/;"	m	class:DataPoint
+rki_datapoints	convert_rki.py	/^rki_datapoints = load_rki_csv(".\/rki.csv")$/;"	v
+rki_row_to_rki_datapoint	rki.py	/^def rki_row_to_rki_datapoint(row):$/;"	f
+row	agegroups.py	/^    row = int(i \/ 2)$/;"	v
+row	regions.py	/^    row = int(i \/ 4)$/;"	v
+run_interpolations	interpolation.py	/^def run_interpolations(region_collection, ifr=0.005):$/;"	f
+s_ctr	convert_rki.py	/^            s_ctr = date_hash[date].get(s_key, [0, 0])$/;"	v
+s_date	convert_rki.py	/^    s_date = "{}\/{}\/{}".format(date.month, date.day, date.year - 2000)$/;"	v
+single_subset	covid.py	/^    def single_subset(self, criteria):$/;"	m	class:DataCollection
+string_to_date	covid.py	/^def string_to_date(date_str):$/;"	f
+subset	covid.py	/^    def subset(self, criteria):$/;"	m	class:DataCollection
+subset_for_region	covid.py	/^    def subset_for_region(self, region):$/;"	m	class:DataCollection
+subset_for_timespan	covid.py	/^    def subset_for_timespan(self, d_from, d_to):$/;"	m	class:DataCollection
+subsets	covid-console.py	/^subsets = ['A00-A04', 'A05-A14', 'A15-A34', 'A35-A59', 'A60-A79', 'A80+']$/;"	v
+table_confirmed	convert_rki.py	/^table_confirmed = table_hash.copy()$/;"	v
+table_deaths	convert_rki.py	/^table_deaths = table_hash.copy()$/;"	v
+table_hash	convert_rki.py	/^table_hash = {$/;"	v
+timeline	rki_tools.py	/^def timeline(datapoints, property_lambda):$/;"	f
+timespan_data	agegroups.py	/^    timespan_data = age_group.subset_for_timespan(daysago, today)$/;"	v
+timespan_data	regions.py	/^    timespan_data = region.subset_for_timespan(daysago, today)$/;"	v
+to_add	superspreading.py	/^        to_add = [day_and_region[0] + datetime.timedelta(days=i), day_and_region[1]]$/;"	v
+to_date	rki.py	/^    def to_date(self, date_str):$/;"	m	class:RKIDataPoint
+today	agegroups.py	/^today = datetime.date.today() - datetime.timedelta(days=CUT_OFF_DAYS)$/;"	v
+today	plot.py	/^today = datetime.date.today() - datetime.timedelta(days=CUT_OFF_DAYS)$/;"	v
+today	regions.py	/^today = datetime.date.today() - datetime.timedelta(days=CUT_OFF_DAYS)$/;"	v
+total	ages-and-regions.py	/^    total = np.sum([x.count for x in all_for_region])$/;"	v
+total_days	convert_rki.py	/^total_days = ( max_date - min_date ).days + 2$/;"	v
+total_sum	superspreading.py	/^total_sum = np.sum([x.find_calculated("new_infection") for x in all_calc_dps if (x.date.month == MONTH) and is_lk_data(x.region)])$/;"	v
+transform_to_realtime	basic_calculations.py	/^def transform_to_realtime(collection, delay_in_days):$/;"	f
+uniq_ages	convert_rki.py	/^    uniq_ages = np.unique(ages)$/;"	v
+uniq_lks	convert_rki.py	/^    uniq_lks = np.unique(lks)$/;"	v
+unique_days_and_regions	superspreading.py	/^unique_days_and_regions = []$/;"	v
+unique_sum	superspreading.py	/^unique_sum = np.sum([x.find_calculated("new_infection") for x in dps_wo_none])$/;"	v
+values	covid.py	/^    def values(self,key):$/;"	m	class:DataCollection
+week	ages-and-regions.py	/^week = datetime.date(2020, 6, 1)$/;"	v
