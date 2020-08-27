@@ -59,6 +59,14 @@ class DataCollection:
     def values(self,key):
         return  np.array([item.find_calculated(key) for item in self.datapoints])
 
+    def moved_to_n_days_past(self, days):
+        l = self.datapoints.copy()
+        for i in l:
+            i.date = i.date - datetime.timedelta(days=days)
+
+        return DataCollection(l, self.dictionary)
+
+
     def remember(self, key, value):
         self.dictionary[key] = value
         return self
@@ -118,7 +126,7 @@ def load_for_countries(confirmed_csv, deaths_csv, countries, loadDeaths=True):
     db = DataCollection()
 
     print("Loading confirmed...")
-    df_c = pd.read_csv(confirmed_csv)
+    df_c = pd.read_csv(confirmed_csv, error_bad_lines=False)
     for i, row in df_c.iterrows():
         if ( (row['Country/Region'] not in countries) or (type(row['Province/State']) == str) ) and (len(countries) > 0):
             continue
@@ -135,7 +143,7 @@ def load_for_countries(confirmed_csv, deaths_csv, countries, loadDeaths=True):
 
 
     print("Loading deaths...")
-    df_c = pd.read_csv(deaths_csv)
+    df_c = pd.read_csv(deaths_csv, error_bad_lines=False)
     for i, row in df_c.iterrows():
         if ( (row['Country/Region'] not in countries) or (type(row['Province/State']) == str) ) and (len(countries) > 0):
             continue

@@ -112,14 +112,14 @@ def calculate_new_infections_weekly(region_collection):
     return reduce_weekly(region_collection, 'new_infection', 'new_infections_weekly', True)
 
 def calculate_new_deaths_weekly(region_collection):
-    return reduce_weekly(region_collection, 'new_deaths', 'new_deaths_weekly', True)
+    return reduce_weekly(region_collection, 'new_deaths', 'new_deaths_weekly')
 
 def calculate_basics(region_collection):
     calculate_daily_new_infections(region_collection)
     calculate_daily_new_deaths(region_collection)
     calculate_current_r(region_collection)
     calculate_current_r(region_collection, 4, 'r_deaths', 'new_deaths')
-    calculate_current_r(region_collection, 7, 'r7', 'new_infection', lambda x: math.sqrt(x))
+    calculate_current_r(region_collection, 7, 'r7', 'new_infection', lambda x: math.sqrt(x) if x >= 0 else 0)
     calculate_cfr(region_collection)
     calculate_active_cases(region_collection)
     calculate_days_since_last_infection(region_collection)

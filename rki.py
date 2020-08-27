@@ -10,9 +10,13 @@ class RKIDataPoint:
         self.region_id = region_id
 
     def to_date(self, date_str):
+        if ((type(date_str) != str)):
+            return None
+
         date_component = date_str.split(" ")[0]
         date_components = [int(x) for x in date_component.split("/")]
-        return datetime.date(date_components[0], date_components[1], date_components[2])
+        dt = datetime.date(date_components[0], date_components[1], date_components[2])
+        return dt
 
 
 def rki_row_to_rki_datapoint(row):
@@ -22,4 +26,4 @@ def load_rki_csv(filename):
     print("Reading data...")
     df = pd.read_csv("./rki.csv")
     print("Converting to Datapoints")
-    return [rki_row_to_rki_datapoint(x) for i,x in df.iterrows()]
+    return [dp for dp in [rki_row_to_rki_datapoint(x) for i,x in df.iterrows()] if dp.date != None]

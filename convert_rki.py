@@ -42,8 +42,8 @@ for i in range(0, total_days):
         if not region_id in regions_hash:
             regions_hash[region_id] = {}
 
-        new_inf = np.sum([x.count for x in data_for_day if x.region_id == region_id])
-        new_dth = np.sum([x.death_count for x in data_for_day if x.region_id == region_id])
+        new_inf = np.sum([int(x.count) for x in data_for_day if x.region_id == region_id])
+        new_dth = np.sum([int(x.death_count) for x in data_for_day if x.region_id == region_id])
         regions_hash[region_id][date] = [new_inf, new_dth]
 
 print("for age brackets...")
@@ -58,8 +58,8 @@ for i in range(0, total_days):
         if not age_bracket in age_hash:
             age_hash[age_bracket] = {}
 
-        new_inf = np.sum([x.count for x in data_for_day if x.age_bracket == age_bracket])
-        new_dth = np.sum([x.death_count for x in data_for_day if x.age_bracket == age_bracket])
+        new_inf = np.sum([int(x.count) for x in data_for_day if x.age_bracket == age_bracket])
+        new_dth = np.sum([int(x.death_count) for x in data_for_day if x.age_bracket == age_bracket])
         age_hash[age_bracket][date] = [new_inf, new_dth]
 
 print("Sorting by date...")
