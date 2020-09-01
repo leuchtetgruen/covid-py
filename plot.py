@@ -46,7 +46,7 @@ regions = []
 # regions.append(col.subset_for_region('A80+').remember('mio_inhabitants', 5))
 # CUT_OFF_DAYS = 0
 
-col = covid.load_for_countries('confirmed.csv', 'deaths.csv', ['Germany', 'Italy', 'Sweden', 'US', 'United Kingdom', 'Denmark', 'Norway'])
+col = covid.load_for_countries('confirmed.csv', 'deaths.csv', ['Germany', 'Italy', 'Sweden', 'US', 'United Kingdom', 'Denmark', 'Norway', 'France', 'Spain'])
 regions.append(col.subset_for_region('Germany').remember('mio_inhabitants', 80))
 regions.append(col.subset_for_region('Italy').remember('mio_inhabitants', 60))
 regions.append(col.subset_for_region('Sweden').remember('mio_inhabitants', 10))
@@ -54,6 +54,8 @@ regions.append(col.subset_for_region('US').remember('mio_inhabitants', 328))
 regions.append(col.subset_for_region('United Kingdom').remember('mio_inhabitants',66))
 regions.append(col.subset_for_region('Denmark').remember('mio_inhabitants', 5))
 regions.append(col.subset_for_region('Norway').remember('mio_inhabitants', 5))
+regions.append(col.subset_for_region('France').remember('mio_inhabitants', 67))
+regions.append(col.subset_for_region('Spain').remember('mio_inhabitants', 47))
 CUT_OFF_DAYS = 0
 
 for region in regions:
@@ -64,7 +66,7 @@ SELECTED_INDEX = 0
 INFECTION_TO_STATISTICS_DELAY = 8
 INFECTION_TO_DEATH_STATISTICS_DELAY = 20
 R_DELAY = 12
-LOOKBACK_DAYS = 48
+LOOKBACK_DAYS = 60
 ctr = regions[SELECTED_INDEX]
 ctr_name = ctr.datapoints[0].region
 
@@ -90,7 +92,7 @@ axs[0,1].plot(ctr_timespan.dates(), ctr_timespan.values("new_infection"), color=
 axs[0,1].legend()
 axs[0,1].set_title("Gemeldete Neuinfektionen ({})".format(ctr_name))
 
-axs[1,0].plot(ctr_timespan.dates(), ctr_timespan.values("new_deaths_weekly"), label='Wöchentlich gemittelt')
+axs[1,0].plot(ctr_timespan.dates(), ctr_timespan.values("new_deaths_weekly"), label='Wöchentlich summiert')
 axs[1,0].plot(ctr_timespan.dates(), ctr_timespan.values("new_deaths"), color='lightgray', linestyle='dotted', label='Täglich')
 axs[1,0].legend()
 axs[1,0].set_title("Gemeldete Todesfälle ({})".format(ctr_name))
@@ -155,7 +157,7 @@ axs[2,0].plot(infections_realtime.dates(), infections_realtime.values("new_death
 axs[2,0].plot(infections_realtime.dates(), infections_realtime.values("new_deaths_weekly"), label='Echtzeit-Tote (wöchentlich)', color='orange')
 axs[2,0].legend()
 axs[2,0].set_title("Echtzeit-Neuinfektionen ({})".format(infections_realtime.get("region")))
-add_events(EVENTS[SELECTED_INDEX], infections_realtime, "new_infections_weekly", axs[2,0])
+# add_events(EVENTS[SELECTED_INDEX], infections_realtime, "new_infections_weekly", axs[2,0])
 
 r_realtime = transform_to_realtime(ctr_timespan, R_DELAY)
 r_deaths_realtime = transform_to_realtime(ctr_timespan, INFECTION_TO_DEATH_STATISTICS_DELAY).subset(lambda c: c.date >= r_realtime.datapoints[0].date)
@@ -167,7 +169,7 @@ axs[2,1].plot(r_realtime.dates(), [1] * len(r_realtime.dates()), color='red', li
 axs[2,1].legend()
 axs[2,1].set_title("Echtzeit-R ({})".format(infections_realtime.get("region")))
 
-add_events(EVENTS[SELECTED_INDEX], r_realtime, "r_weekly", axs[2,1])
+# add_events(EVENTS[SELECTED_INDEX], r_realtime, "r_weekly", axs[2,1])
         
 plt.show()
 

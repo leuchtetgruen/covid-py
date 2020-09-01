@@ -46,5 +46,6 @@ for i, age_group in enumerate(age_groups):
     axs[row,col].legend()
     axs[row, col].set_title(name)
 
-plt.show()
 
+
+plt.show()
