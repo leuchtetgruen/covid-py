@@ -41,18 +41,19 @@ for date in date_sorted:
     for idx, item in enumerate(date_sorted[date]):
         days_ago = 14 - idx
         target_date = date.date() - datetime.timedelta(days=days_ago)
-        counter = 0
+        date_list = []
         if found_count.get(target_date) != None:
-            counter = found_count.get(target_date)
+            date_list = found_count.get(target_date)
 
         if item['matchesCount'] > 0:
             print(" Found {} matches {} days ago".format(item['matchesCount'], days_ago))
+            date_list.append(date) #item['matchesCount']
 
-        counter = counter + item['matchesCount']
-        found_count[target_date] = counter
+        found_count[target_date] = date_list
 
 print("")
 for date in found_count:
     str_found = "0"
-    if (found_count[date] > 0):
-        print("Exposures on {} : >0 - found in datasets of {} days".format(date, found_count[date]))
+    if (len(found_count[date]) > 0):
+        dates = ",".join([d.strftime("%d.%m") for d in found_count[date]])
+        print("Exposures on {} : >0 - found in datasets of {} ".format(date, dates))
