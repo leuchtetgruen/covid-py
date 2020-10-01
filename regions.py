@@ -9,7 +9,7 @@ import datetime
 import os.path
 import pandas as pd
 
-CUT_OFF_DAYS = 3
+CUT_OFF_DAYS = 1
 LOOKBACK_DAYS = 60
 
 NAMES = {
@@ -107,9 +107,11 @@ for i, region in enumerate(regions):
     inh = INHABITANTS[region_id] / 100
 
     weekly_adj = [x / inh for x in timespan_data.values("new_infections_weekly_sum")]
+    weekly_avg = [x / inh for x in timespan_data.values("new_infections_weekly")]
     daily_adj = [x / inh for x in timespan_data.values("new_infection")]
     ax = axs[row, col]
     ax.plot(timespan_data.dates(), weekly_adj, label="Wöchentliche Summe", color='blue')
+    ax.plot(timespan_data.dates(), weekly_avg, label="Wöchentliche Durchschnitt", color='pink')
     ax.plot(timespan_data.dates(), total_weekly, label="Dtl. Summe", color='pink', linestyle='dotted')
     ax.plot(timespan_data.dates(), daily_adj, color='lightgray', linestyle='dotted', label='Täglich')
     # ax.plot(timespan_data.dates(), total_daily, color='pink', linestyle='dotted', label='Dtl. Täglich')

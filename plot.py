@@ -5,6 +5,7 @@ import covid
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 import datetime
+import sys
 
 
 def per_100k_inhabitants(values, mio_inhabitants):
@@ -62,11 +63,16 @@ for region in regions:
     calculate_basics(region)
     run_interpolations(region)
 
-SELECTED_INDEX = 0
+print(sys.argv)
+if len(sys.argv) > 1:
+    SELECTED_INDEX = int(sys.argv[1])
+else:
+    SELECTED_INDEX = 0
+
 INFECTION_TO_STATISTICS_DELAY = 8
 INFECTION_TO_DEATH_STATISTICS_DELAY = 20
 R_DELAY = 12
-LOOKBACK_DAYS = 60
+LOOKBACK_DAYS = 90
 ctr = regions[SELECTED_INDEX]
 ctr_name = ctr.datapoints[0].region
 

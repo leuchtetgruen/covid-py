@@ -25,7 +25,9 @@ def plot_stacked(ax, timespan, names, daily_shares):
 
 
 DATE_START = datetime.date(2020, 3, 1)
+# DATE_START = datetime.date(2020, 8, 1)
 DATE_START_DEATHS = datetime.date(2020, 3, 14)
+# DATE_START_DEATHS = datetime.date(2020, 8, 1)
 DATE_END = datetime.date.today() - datetime.timedelta(days=2)
 
 AGE_GROUPS = ['A00-A04', 'A05-A14', 'A15-A34', 'A35-A59', 'A60-A79', 'A80+']

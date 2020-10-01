@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 import datetime
 
-CUT_OFF_DAYS = 3
+CUT_OFF_DAYS = 1
 LOOKBACK_DAYS = 90
 
 AGE_GROUPS = ['A00-A04', 'A05-A14', 'A15-A34', 'A35-A59', 'A60-A79', 'A80+']
