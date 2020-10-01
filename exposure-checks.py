@@ -52,7 +52,8 @@ for date in date_sorted:
         found_count[target_date] = date_list
 
 print("")
-for date in found_count:
+sorted_dates = sorted(found_count.keys())
+for date in sorted_dates:
     str_found = "0"
     if (len(found_count[date]) > 0):
         dates = ",".join([d.strftime("%d.%m") for d in found_count[date]])
