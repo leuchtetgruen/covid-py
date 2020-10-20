@@ -33,7 +33,7 @@ def predict_hospitalization(region_collection, hospitalization_rate):
 
 def test_positive_adjusted_value(region_collection):
     def calculate(region_collection, date, item):
-        return item.find_calculated("new_infections_weekly") * rate_for_day(date)
+        return item.find_calculated("new_infections_weekly") * (rate_for_day(date) / 2) # 2 is a target for tpr
 
     return process_region_collection(region_collection, calculate, 'new_infections_adjusted')
 

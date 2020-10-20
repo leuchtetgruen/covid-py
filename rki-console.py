@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 
 
+
 data = load_rki_csv("./rki.csv")
 print("RKI datapoints have been loaded into the data variable")
 print("Use the for_... functions. pass the list as the first parameter and the conditions as the 2nd (and 3rd) parameter")
