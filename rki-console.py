@@ -6,6 +6,7 @@ from rki import RKIDataPoint, load_rki_csv
 from rki_tools import for_region, for_age_bracket, for_timespan, for_week, for_date, AGE_BRACKETS, REGIONS, BEZIRKE, RelativeCounter,count_array,timeline
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
+from collections import Counter
 
 
 
@@ -15,5 +16,6 @@ print("Use the for_... functions. pass the list as the first parameter and the c
 print("for_region, for_age_bracket, for_timespan, for_week")
 print("Use RelativeCounter to get a distribution of values in array")
 print("Use timeline(arr, lambda) to arrange the sum of values of datapoints on a timeline")
+print("Use count_array to make an array of counts for a certain property")
 print("Use the variables AGE_BRACKETS and REGIONS to see and use available regions and age brackets.")
 pdb.set_trace()

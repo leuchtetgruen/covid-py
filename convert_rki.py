@@ -100,9 +100,10 @@ for i in range(0, total_days):
         ctr = [0,0]
         for s_key in CONVERT_HASHES[key]:
             # pdb.set_trace()
-            s_ctr = date_hash[date][s_key]
-            ctr[0] = ctr[0] + s_ctr[0]
-            ctr[1] = ctr[1] + s_ctr[1]
+            if s_key in date_hash[date]:
+                s_ctr = date_hash[date][s_key]
+                ctr[0] = ctr[0] + s_ctr[0]
+                ctr[1] = ctr[1] + s_ctr[1]
 
         date_hash[date][key] = ctr
 

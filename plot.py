@@ -35,44 +35,46 @@ def add_events(events, collection, key, ax):
 
 regions = []
 
-# PREFIX = "rki-"
-# LK_ID = "11000"
-# col = covid.load_for_countries(PREFIX + 'confirmed.csv', PREFIX + 'deaths.csv', [LK_ID, 'A00-A04', 'A05-A14', 'A15-A34', 'A35-A59', 'A60-A79', 'A80+'])
-# regions.append(col.subset_for_region(LK_ID).remember('mio_inhabitants', 5))
-# regions.append(col.subset_for_region('A00-A04').remember('mio_inhabitants', 5))
-# regions.append(col.subset_for_region('A05-A14').remember('mio_inhabitants', 5))
-# regions.append(col.subset_for_region('A15-A34').remember('mio_inhabitants', 5))
-# regions.append(col.subset_for_region('A35-A59').remember('mio_inhabitants', 5))
-# regions.append(col.subset_for_region('A60-A79').remember('mio_inhabitants', 5))
-# regions.append(col.subset_for_region('A80+').remember('mio_inhabitants', 5))
-# CUT_OFF_DAYS = 0
+INHABITANTS = {
+        "germany": 80,
+        "italy" : 60,
+        "sweden": 10,
+        "us": 328,
+        "united kingdom": 66,
+        "denmark": 5,
+        "norway": 5,
+        "france": 67,
+        "spain": 47,
+        "ireland": 5,
+        "poland": 40,
+        "austria": 9,
+        "switzerland": 8.5,
+        "belgium": 11.5,
+        "netherlands": 17,
+        "czechia": 10.5,
+        "portugal": 10
+        }
+SELECTED_INDEX = 0
+if len(sys.argv) > 1:
+    COUNTRY = sys.argv[1]
+else:
+    COUNTRY = "Germany"
 
-col = covid.load_for_countries('confirmed.csv', 'deaths.csv', ['Germany', 'Italy', 'Sweden', 'US', 'United Kingdom', 'Denmark', 'Norway', 'France', 'Spain'])
-regions.append(col.subset_for_region('Germany').remember('mio_inhabitants', 80))
-regions.append(col.subset_for_region('Italy').remember('mio_inhabitants', 60))
-regions.append(col.subset_for_region('Sweden').remember('mio_inhabitants', 10))
-regions.append(col.subset_for_region('US').remember('mio_inhabitants', 328))
-regions.append(col.subset_for_region('United Kingdom').remember('mio_inhabitants',66))
-regions.append(col.subset_for_region('Denmark').remember('mio_inhabitants', 5))
-regions.append(col.subset_for_region('Norway').remember('mio_inhabitants', 5))
-regions.append(col.subset_for_region('France').remember('mio_inhabitants', 67))
-regions.append(col.subset_for_region('Spain').remember('mio_inhabitants', 47))
-CUT_OFF_DAYS = 0
+
+col = covid.load_for_countries('confirmed.csv', 'deaths.csv', [COUNTRY])
+regions.append(col.subset_for_region(COUNTRY).remember('mio_inhabitants', INHABITANTS[COUNTRY.lower()]))
+CUT_OFF_DAYS = 3
 
 for region in regions:
+    print("Calculating for " + region.datapoints[0].region)
     calculate_basics(region)
     run_interpolations(region)
 
-print(sys.argv)
-if len(sys.argv) > 1:
-    SELECTED_INDEX = int(sys.argv[1])
-else:
-    SELECTED_INDEX = 0
 
 INFECTION_TO_STATISTICS_DELAY = 8
 INFECTION_TO_DEATH_STATISTICS_DELAY = 20
 R_DELAY = 12
-LOOKBACK_DAYS = 250
+LOOKBACK_DAYS = 190
 ctr = regions[SELECTED_INDEX]
 ctr_name = ctr.datapoints[0].region
 
@@ -111,71 +113,16 @@ axs[1,1].plot(ctr_timespan.dates(), [1] * len(ctr_timespan.dates()), color='red'
 axs[1,1].legend()
 axs[1,1].set_title("Entwicklung von R ({})".format(ctr_name))
 
-EVENTS = [{
-    datetime.date(2020, 3, 2): "U-Hamsterkäufe",
-    datetime.date(2020, 3, 8): "Absage Großveranstaltungen",
-    datetime.date(2020, 3, 16): "Schulschließungen",
-    datetime.date(2020, 3, 22): "0-Kontaktsperren",
-    datetime.date(2020, 4, 10): "Ostern",
-    datetime.date(2020, 4, 15): "Lockerungsdiskussionen",
-    datetime.date(2020, 4, 27): "Geschäftsöffnungen / Masken",
-    datetime.date(2020, 5, 3): "U-Schulöffnungen",
-    datetime.date(2020, 5, 6): "Lockerungen Kontaktbeschränkung",
-    datetime.date(2020, 5, 15): "U-Gaststättenöffnungen"
-    },
-    {
-        datetime.date(2020, 2, 23): "Absage Karneval",
-        datetime.date(2020, 3, 2): "Regionale Lockdowns",
-        datetime.date(2020, 3, 12): "Nationaler Lockdown",
-        datetime.date(2020, 5, 3): "Fase 2"
-        },
-    {
-        datetime.date(2020, 3, 11): "1. Toter, Keine Vers >500",
-        datetime.date(2020, 3, 27): "U-Keine Vers >50",
-        datetime.date(2020, 4, 1): "Altenheimbesuche verboten",
-        },
-    {
-        datetime.date(2020, 3, 11): "Schengen Travel ban",
-        datetime.date(2020, 3, 16): "15 days to slow the spread",
-        datetime.date(2020, 3, 21): "U-Lockdown in many states",
-        datetime.date(2020, 4, 15): "Trump: Past the peak",
-
-        },
-    {
-        datetime.date(2020, 2, 3): "Johnson: Corona-Panic",
-        datetime.date(2020, 3, 13): "Herd immunity, isolate elderly",
-        datetime.date(2020, 3, 23): "Lockdown",
-        datetime.date(2020, 4, 6): "Johnson in ICU"
-        },
-    {
-        datetime.date(2020, 3, 13): "Lockdown",
-        datetime.date(2020, 4, 15): "Schulöffnungen"
-        },
-    {
-        datetime.date(2020, 3, 12): "Lockdown",
-        datetime.date(2020, 4, 20): "Schulöffnungen"
-        }]
-
-infections_realtime = transform_to_realtime(ctr_timespan, INFECTION_TO_STATISTICS_DELAY)
-axs[2,0].plot(infections_realtime.dates(), infections_realtime.values("new_infection"), color='lightblue', linestyle='dotted', label='Echtzeit-Infektionen')
-axs[2,0].plot(infections_realtime.dates(), infections_realtime.values("new_infections_weekly"), label='Echtzeit-Infektionen (wöchentlich)', color='darkblue')
-axs[2,0].plot(infections_realtime.dates(), infections_realtime.values("new_deaths"), label='Echtzeit-Tote', color='orange', linestyle='dotted')
-axs[2,0].plot(infections_realtime.dates(), infections_realtime.values("new_deaths_weekly"), label='Echtzeit-Tote (wöchentlich)', color='orange')
+dp100k = per_100k_inhabitants(ctr_timespan.values("new_deaths_weekly"), ctr.get("mio_inhabitants")) 
+axs[2,0].plot(ctr_timespan.dates(), dp100k, color='pink', label='Tote / 100k Einwohner in 7 Tagen')
 axs[2,0].legend()
-axs[2,0].set_title("Echtzeit-Neuinfektionen ({})".format(infections_realtime.get("region")))
-# add_events(EVENTS[SELECTED_INDEX], infections_realtime, "new_infections_weekly", axs[2,0])
+axs[2,0].set_title("7-Tage Todesfälle / 100k EW ({})".format(ctr.get("region")))
 
-r_realtime = transform_to_realtime(ctr_timespan, R_DELAY)
-r_deaths_realtime = transform_to_realtime(ctr_timespan, INFECTION_TO_DEATH_STATISTICS_DELAY).subset(lambda c: c.date >= r_realtime.datapoints[0].date)
-axs[2,1].plot(r_realtime.dates(), r_realtime.values("r"), color='lightblue', linestyle='dotted', label='Echtzeit-R')
-axs[2,1].plot(r_realtime.dates(), r_realtime.values("r_weekly"), label='Echtzeit-R (wöchentlich)', color='darkblue')
-axs[2,1].plot(r_deaths_realtime.dates(), r_deaths_realtime.values("r_deaths"), label='Echtzeit-R (aus Toten)', color='orange', linestyle='dotted')
-axs[2,1].plot(r_deaths_realtime.dates(), r_deaths_realtime.values("r_deaths_weekly"), label='Echtzeit-R (aus Toten, wöchtl.)', color='orange')
-axs[2,1].plot(r_realtime.dates(), [1] * len(r_realtime.dates()), color='red', linestyle='dashed', linewidth=0.5, label='R=1')
+
+p100k = per_100k_inhabitants(ctr_timespan.values("new_infections_weekly_sum"), ctr.get("mio_inhabitants")) 
+axs[2,1].plot(ctr_timespan.dates(), p100k, color='lightblue', label='Neuinfektionen / 100k Einwohner in 7 Tagen')
 axs[2,1].legend()
-axs[2,1].set_title("Echtzeit-R ({})".format(infections_realtime.get("region")))
-
-# add_events(EVENTS[SELECTED_INDEX], r_realtime, "r_weekly", axs[2,1])
+axs[2,1].set_title("7-Tage Inzidenz ({})".format(ctr.get("region")))
         
 plt.show()
 
